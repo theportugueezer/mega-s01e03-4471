@@ -35,10 +35,18 @@ Merging on subject line put both causes in one ticket, because people use the sa
 each. Group by what a report shows: its tenant, its channel, and its dates.
 </Callout>
 
+## Where it stands
+
+Engineering closed #4471 on 5 October. `parser` is fixed (`fix(dates): parse dd/mm for eu
+locales`), so its ticket is closed as done. `hint` will not be fixed: the booking-v3 form is
+retired, so its ticket is closed as not planned. The one-day move is not covered by either, so
+its ticket stays open.
+
 ## What to check before closing #4471
 
 1. The parser fix ships, and new parser reports stop, through every channel.
 2. The booking-v3 hint and the form agree on one order.
-3. The one-day moves stop too. If they do not, the parser fix did not cover them.
+3. The one-day moves stop too. If they do not, the parser fix did not cover them, and the
+   open ticket is the place to look.
 
 <RenderStamp {signature} />
