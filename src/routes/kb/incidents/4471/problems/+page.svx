@@ -1,0 +1,44 @@
+---
+layout: runbook
+title: '#4471 · two causes, one ticket'
+owner: support desk
+status: open
+reviewed: 2026-11-03
+signature: 'v1.eyJzdWIiOiIyNjUwIiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTM2ODE1MjksImV4cCI6MTc5Mzc2NzkyOX0.TCngQVkWVPJCJK58bpOEyybEbLEkxfb57pFCk5tI0AE'
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+#4471 is marked known, with one fix queued. The reports in it come from two causes, and each
+one needs its own fix. Fixing the parser leaves the booking-v3 form open.
+
+<ProblemTable ticket={4471} repo="theportugueezer/mega-s01e03-4471" />
+
+## How the reports split
+
+- **parser.** Every tenant in #4471 writes the day first, and the shared parser reads month
+  first, so 7 April becomes 4 July. This is the problem the queued fix is for.
+- **hint.** The booking-v3 form prints `MM/DD/YYYY` under its date field, so people type
+  month first. The form then reads the date day first. The result looks the same as the parser
+  bug, but only on the three booking-v3 tenants, and only through the form.
+
+A few parser reports describe a date that moves to the day before, not a swap, for example
+Tuesday 12 May shown as Monday 11 May. The desk keeps them under parser, by tenant, and lists
+them in `desk-notes.json`. If more come in, they may need a ticket of their own.
+
+<Callout kind="warn">
+Merging on subject line put both causes in one ticket, because people use the same words for
+each. Group by what a report shows: its tenant, its channel, and its dates.
+</Callout>
+
+## What to check before closing #4471
+
+1. The parser fix ships, and new parser reports stop, through every channel.
+2. The booking-v3 hint and the form agree on one order.
+3. The one-day moves stop too. If they do not, the parser fix did not cover them.
+
+<RenderStamp {signature} />
