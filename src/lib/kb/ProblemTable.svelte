@@ -3,7 +3,7 @@
   import notes from '#lib/data/desk-notes.json';
   import { groupByCause, readAs, uniqueById, type Report } from '#lib/kb/causes';
   import { tenantOf } from '#lib/kb/locales';
-  import { ISSUE, SUMMARY } from '#lib/kb/problems';
+  import { ISSUE, ONE_DAY_ISSUE, SUMMARY } from '#lib/kb/problems';
 
   let { ticket, repo }: { ticket: number; repo: string } = $props();
 
@@ -39,7 +39,7 @@
 {#each groups as g (g.cause)}
   {@const moved = readAs(g, notes.oneDayMove)}
   {#if moved}
-    <p class="note">{moved} of the <code>{g.cause}</code> reports read as a one-day move; counted under <code>{g.cause}</code> by tenant.</p>
+    <p class="note">{moved} of the <code>{g.cause}</code> reports read as a one-day move; counted under <code>{g.cause}</code> by tenant, and tracked as <a href="https://github.com/{repo}/issues/{ONE_DAY_ISSUE}">{repo}#{ONE_DAY_ISSUE}</a>.</p>
   {/if}
 {/each}
 
